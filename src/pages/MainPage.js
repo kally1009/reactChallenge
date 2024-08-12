@@ -8,12 +8,17 @@ import Pagination from '../components/Pagination';
 const MainPage = () => {
     const [results,setResults] = useState([]);
     const [loading, setLoading] = useState(true)
+    const [next, setNext] = useState('')
+    const [prev, setPrev] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const {data: response} = await axios.get(`https://swapi.dev/api/people`);
-                setResults(response);
+                setResults(response.results)
+                setNext(response.next)
+                setPrev(response.previous)
+                
             } catch (error) {
                 console.error(error)
             }
@@ -40,6 +45,9 @@ const MainPage = () => {
             setCurrentPage(currentPage+1)
         }
     };
+
+    console.log("the results are", results)
+    console.log("the length of results are", results.length)
 
     return (
         <>
