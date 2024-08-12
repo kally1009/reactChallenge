@@ -1,4 +1,4 @@
-const Pagination = ({ resultsPerPage, length}) => {
+const Pagination = ({ resultsPerPage, length, currentPage, previousPage, nextPage}) => {
     const paginationNumbers = [];
 
     for (let i = 1; i <= Math.ceil(length / resultsPerPage); i++) {
@@ -6,11 +6,14 @@ const Pagination = ({ resultsPerPage, length}) => {
     }
 
     return (
-        <div className='pagination'>
-            {paginationNumbers.map((pageNumber) => (
-                <p> {pageNumber} / {length}</p>
-    ))}
-        </div>
+        <>
+            <div className='pagination-container'>
+                <button onClick={previousPage}>Previous</button>
+                <p> {currentPage}/{paginationNumbers.length}</p>
+                <button onClick={nextPage}>Next</button>
+            </div>
+        </>
+        
     );
 };
 export default Pagination;

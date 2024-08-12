@@ -1,29 +1,31 @@
+import { useState } from "react";
 import { IoMdSearch } from "react-icons/io"
-const Search = ({ setResults }) => {
-    const [input, setInput] = useState("");
 
-    const fetchData = (value) => {
-        fetch("https://swapi.dev/").then((response) => response.json).then(json => {
-            const results = json.filter((character) => {
-                return value && character && character.name && character.name.toLowerCase().includes(value);
-                 
-            });
-            setResults(results);
-        });
-    };
-
-    const handleClick = (value) => {
-        setInput(value)
-        fetchData (value)
+const Search = ({ results, setResults }) => {
+    const [searchInput, setSearchInput] = useState('');
+    
+    const searchItems = () => {
+        if(searchInput!==''){
+            const filteredData = results.filter((item) => {
+                return Object.values(item).join('').toLowerCase().includes(searchInput.toLocaleLowerCase())
+            })
+            setResults(filteredData)
+        }
+        else {
+            setResults(results)
+        }
     }
+
    return(
     <>
-        <div>
-            <div class="search-content">
-                <IoMdSearch />
-                <input type="text" placeholder="search" value={input}></input>
+        <div className="search-container">
+            <div className="search-content">
+                <IoMdSearch size={40}/>
+                <input type="text" placeholder="search" className="search-bar" value={searchInput} onChange={(event) => setSearchInput(event.target.value)}>
+                
+                </input>
             </div>
-            <button onClick={(e) => handleClick(e.target.value)}>SEARCH</button>
+            <button className="search-button" onClick={() => searchItems()}>SEARCH</button>
         </div>
     </>
 
