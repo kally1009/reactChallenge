@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 #page-body {
   text-align: center;
   background-color: white;
@@ -36,7 +37,7 @@
 }
 
 .page-title {
-  font-family: sans-serif; /*need to be comic sans*/
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
   color: #27c4f4;
 }
 

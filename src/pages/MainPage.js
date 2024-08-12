@@ -43,7 +43,7 @@ const MainPage = () => {
 
     return (
         <>
-            <h1 className="page-title">Starwars Characters</h1>
+            <h1 className="page-title">STARWARS CHARACTERS</h1>
             <Search results={results} setResults={setResults}/>
             <div className="nav-container">
                 <Pagination 
