@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { IoMdSearch } from "react-icons/io"
 
-const Search = ({ results, setResults }) => {
+const Search = ({ results, setNewResults}) => {
     const [searchInput, setSearchInput] = useState('');
+    
     
     const searchItems = () => {
         if(searchInput!==''){
             const filteredData = results.filter((item) => {
                 return Object.values(item).join('').toLowerCase().includes(searchInput.toLocaleLowerCase())
             })
-            setResults(filteredData)
+            setNewResults(filteredData)
         }
         else {
-            setResults(results)
+            setNewResults(results)
             setSearchInput('')
         }
     }

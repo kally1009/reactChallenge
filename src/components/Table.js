@@ -1,6 +1,6 @@
-import TableResult from "./TableResult";
+import { Link } from "react-router-dom";
 
-const Table = ({results}) => {
+const Table = ({results, indexFirst}) => {
    
     return(
         <>
@@ -18,14 +18,15 @@ const Table = ({results}) => {
                     </tr>
                     {results.map((val, key) => {
                         return (
-                            <tr key={key+1} className="table-row">
-                                <td>{key+1}</td>
+                            <tr key={key} className="table-row">
+                                <td ><Link to={'/details/'+(indexFirst+1+key)}>{(indexFirst+1)+key}</Link></td>
                                 <td>{val.name}</td>
                                 <td>{val.height}</td>
-                                <td>{val.hair_color}</td>
+                                <td color={val.hair_color}>{val.hair_color}</td>
                                 <td>{val.homeworld}</td>
                                 <td>{val.gender}</td>
                                 <td>{}</td>
+                                
                             </tr>
                         )
                     })}

@@ -55,16 +55,29 @@ table{
   padding: 2px;
   border-collapse: collapse;
   border: 3px solid black;
+  margin: auto;
 }
 th, td {
   border-collapse: collapse;
   border: 3px solid black;
+  width: 100px;
 }
 
 .nav-container {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.nav-btn {
+  color: #27c4f4;;
+  width: 100px;
+  padding: 10px;
+  margin: 5px;
+}
+
+.num-input {
+  width: 50px;
 }
 
 .pagination-container {
@@ -74,4 +87,10 @@ th, td {
   justify-content: center;
 }
 
+.num-results {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 

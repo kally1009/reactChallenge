@@ -9,6 +9,7 @@ const MainPage = () => {
     const [results,setResults] = useState([]);
     const [loading, setLoading] = useState(true)
     const [next, setNext] = useState('')
+    const [filteredResults, setFilteredResults] = useState([])
     
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const MainPage = () => {
             } catch (error) {
                 console.error(error)
             }
-            setLoading(false);
+
         };
         fetchData()
     }, []);
@@ -29,6 +30,7 @@ const MainPage = () => {
     //scroll through api pagination
     useEffect(() => {
         if (next===null){
+            setLoading(false);
             return;
         }
         const fetchNextData = async () => {
@@ -39,26 +41,27 @@ const MainPage = () => {
                 const newResults = Array.from(results)
                 newResults.push(...resResults)
                 setResults(newResults)
+                setFilteredResults(newResults)
                 setNext(resNext)
                 
             } catch (error) {
                 console.error(error)
             }
-            setLoading(false);
+            
         };
         fetchNextData()
-    }, [next])
+    }, [next,results])
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [resultsPerPage, setResultsPerPage] = useState(4);
-    
-    const indexOfLastPost = currentPage * resultsPerPage;
-    const indexOfFirstPost = indexOfLastPost - resultsPerPage;
-    const currentResults = results.slice(indexOfFirstPost, indexOfLastPost);
+    const [resultsPerPage, setResultsPerPage] = useState(10);
+    const indexOfLastResult = currentPage * resultsPerPage;
+    const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+    const currentResults = filteredResults.slice(indexOfFirstResult, indexOfLastResult);
     
     const previousPage = () => {
         if (currentPage!== 1){
             setCurrentPage(currentPage-1);
+            
         }
     };
 
@@ -68,28 +71,25 @@ const MainPage = () => {
         }
     };
 
-    console.log("the results are", results)
-    console.log("the length of results are", results.length)
-
     return (
         <>
             <h1 className="page-title">STARWARS CHARACTERS</h1>
-            <Search results={results} setResults={setResults}/>
-            <div className="nav-container">
-                <Pagination 
+            <Search results={results} setNewResults={setFilteredResults}/>
+            {!loading && <div className="nav-container">
+            <Pagination 
                     resultsPerPage={resultsPerPage}
                     length={results.length}
                     currentPage={currentPage}
                     previousPage={previousPage}
                     nextPage={nextPage}
                 />
-                <div>
+                <div className='num-results'>
                     <p>Rows Per Page</p>
-                    <NumericInput min={1} max={10} onChange={(value) => setResultsPerPage(value)} />
+                    <NumericInput min={1} max={10} onChange={(value) => setResultsPerPage(value)}  className='num-input' />
                 </div>
-            </div>
+            </div>}
             
-            <Table results={currentResults}/>
+            <Table results={currentResults} indexFirst={indexOfFirstResult}/>
         </>
     );
 }
