@@ -13,6 +13,7 @@ const Search = ({ results, setResults }) => {
         }
         else {
             setResults(results)
+            setSearchInput('')
         }
     }
 

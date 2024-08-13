@@ -9,7 +9,7 @@ const MainPage = () => {
     const [results,setResults] = useState([]);
     const [loading, setLoading] = useState(true)
     const [next, setNext] = useState('')
-    const [prev, setPrev] = useState('')
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,7 +17,6 @@ const MainPage = () => {
                 const {data: response} = await axios.get(`https://swapi.dev/api/people`);
                 setResults(response.results)
                 setNext(response.next)
-                setPrev(response.previous)
                 
             } catch (error) {
                 console.error(error)
@@ -27,12 +26,35 @@ const MainPage = () => {
         fetchData()
     }, []);
 
+    //scroll through api pagination
+    useEffect(() => {
+        if (next===null){
+            return;
+        }
+        const fetchNextData = async () => {
+            try {
+                const {data: response} = await axios.get(next);
+                const resResults = response.results
+                const resNext = response.next
+                const newResults = Array.from(results)
+                newResults.push(...resResults)
+                setResults(newResults)
+                setNext(resNext)
+                
+            } catch (error) {
+                console.error(error)
+            }
+            setLoading(false);
+        };
+        fetchNextData()
+    }, [next])
+
     const [currentPage, setCurrentPage] = useState(1);
     const [resultsPerPage, setResultsPerPage] = useState(4);
     
     const indexOfLastPost = currentPage * resultsPerPage;
     const indexOfFirstPost = indexOfLastPost - resultsPerPage;
-    
+    const currentResults = results.slice(indexOfFirstPost, indexOfLastPost);
     
     const previousPage = () => {
         if (currentPage!== 1){
@@ -67,7 +89,7 @@ const MainPage = () => {
                 </div>
             </div>
             
-            <Table results={results}/>
+            <Table results={currentResults}/>
         </>
     );
 }
