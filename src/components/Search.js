@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { IoMdSearch } from "react-icons/io"
 
-const Search = ({ results, setNewResults}) => {
+const Search = ({ results, setNewResults, setCurrentPage}) => {
     const [searchInput, setSearchInput] = useState('');
     
     
     const searchItems = () => {
+        setCurrentPage(1)
         if(searchInput!==''){
             const filteredData = results.filter((item) => {
                 return Object.values(item.name).join('').toLowerCase().includes(searchInput.toLowerCase())

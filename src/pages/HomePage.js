@@ -23,7 +23,7 @@ const getHairColorStyle = (hairColor) => {
       case 'blonde':
         return { color: 'yellow' };
       case 'blond':
-        return { color: 'yellow' }
+        return { color: '#eadb1b' }
       case 'brown':
         return { color: 'brown' };
       case 'black':
@@ -123,7 +123,7 @@ const HomePage = () => {
   return (
     <>
     <h1 className="page-title">STARWARS CHARACTERS</h1>
-    <Search results={people} setNewResults={setFilteredResults}/>
+    <Search results={people} setNewResults={setFilteredResults} setCurrentPage={setCurrentPage}/>
     <div>
     <div className="nav-container">
         <div>
@@ -162,8 +162,8 @@ const HomePage = () => {
         </thead>
         <tbody>
           {paginatedPeople.map((person,index) => (
-            <tr key={person.name}>
-              <td><Link to={`/details/${getUniqueId(index)}`}>{getUniqueId(index)}</Link></td>  
+            <tr key={person.id}>
+              <td><Link to={`/details/${person.id}`}>{person.id}</Link></td>  
               <td>{person.name}</td>
               <td>{person.height}</td>
               <td style={getHairColorStyle(person.hair_color)}>{person.hair_color}</td>
