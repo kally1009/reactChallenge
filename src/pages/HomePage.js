@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Search from '../components/Search';
 import NumericInput from 'react-numeric-input';
+import { Link } from 'react-router-dom';
 
 // Utility function to fetch paginated data
 const fetchPaginatedData = async (url) => {
@@ -102,7 +103,7 @@ const HomePage = () => {
 
   // Handle pagination
   const paginatedPeople = filteredResults.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-  const totalPages = Math.ceil(people.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredResults.length / itemsPerPage);
 
   const getUniqueId = (index) => {
     return (currentPage - 1) * itemsPerPage + index + 1;
@@ -157,7 +158,7 @@ const HomePage = () => {
         <tbody>
           {paginatedPeople.map((person,index) => (
             <tr key={person.name}>
-              <td>{getUniqueId(index)}</td>  
+              <td><Link to={`/details/${getUniqueId(index)}`}>{getUniqueId(index)}</Link></td>  
               <td>{person.name}</td>
               <td>{person.height}</td>
               <td style={getHairColorStyle(person.hair_color)}>{person.hair_color}</td>

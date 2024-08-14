@@ -9,7 +9,7 @@ function App() {
         <div id="page-body">
           <Routes>
             <Route path="/" element={<HomePage/>}/>
-            <Route path="details/:id" element={DetailsPage}/>
+            <Route path="details/:id" element={<DetailsPage/>}/>
           </Routes>
         </div>
       

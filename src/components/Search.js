@@ -8,7 +8,7 @@ const Search = ({ results, setNewResults}) => {
     const searchItems = () => {
         if(searchInput!==''){
             const filteredData = results.filter((item) => {
-                return Object.values(item).join('').toLowerCase().includes(searchInput.toLocaleLowerCase())
+                return Object.values(item.name).join('').toLowerCase().includes(searchInput.toLowerCase())
             })
             setNewResults(filteredData)
         }
