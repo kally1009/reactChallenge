@@ -37,7 +37,7 @@ const DetailsPage = () => {
   if (!person) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className='details-page'>
       <h1>{person.name}</h1>
       <p>Height: {person.height}</p>
       <p>Hair Color: {person.hair_color}</p>
@@ -46,7 +46,7 @@ const DetailsPage = () => {
       <h2>Starships</h2>
       <ul>
         {person.starships.map(starshipUrl => (
-          <li key={starshipUrl}>
+          <li key={starshipUrl} className='details-lst'>
             {starshipData[starshipUrl] || 'Unknown Starship'}
           </li>
         ))}

@@ -4,7 +4,7 @@ import Search from '../components/Search';
 import NumericInput from 'react-numeric-input';
 import { Link } from 'react-router-dom';
 
-// Utility function to fetch paginated data
+
 const fetchPaginatedData = async (url) => {
   let results = [];
   let nextUrl = url;
@@ -85,9 +85,14 @@ const HomePage = () => {
           };
   
           const homeworldData = await fetchHomeworlds();
-  
-          setPeople(peopleData);
-          setFilteredResults(peopleData)
+          
+          const peopleWithIds = peopleData.map((person, index) => ({
+            ...person,
+            id: index + 1
+          }));
+          
+          setPeople(peopleWithIds);
+          setFilteredResults(peopleWithIds)
           setStarships(starshipData);
           setHomeworlds(homeworldData);
         } catch (error) {
@@ -114,7 +119,7 @@ const HomePage = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  console.log(paginatedPeople)
+  
   return (
     <>
     <h1 className="page-title">STARWARS CHARACTERS</h1>
