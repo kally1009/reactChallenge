@@ -1,4 +1,4 @@
-![image](./UI.png)
+![image](./finishedUI.png)
 
 
 # Getting Started with Create React App
